@@ -10,13 +10,13 @@ package piscine
 // 	Tail *NodeL
 // }
 
-func ListPushBack(l *List, data interface{}) {
-	NewNode := &NodeL{Data: data}
-	if l.Tail == nil {
-		l.Head = NewNode
-		l.Tail = NewNode
-	} else {
-		l.Tail.Next = NewNode
-		l.Tail = NewNode
-	}
-}
+// func ListPushBack(l *List, data interface{}) {
+// 	NewNode := &NodeL{Data: data}
+// 	if l.Tail == nil {
+// 		l.Head = NewNode
+// 		l.Tail = NewNode
+// 	} else {
+// 		l.Tail.Next = NewNode
+// 		l.Tail = NewNode
+// 	}
+// }
