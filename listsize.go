@@ -21,15 +21,15 @@ func ListPushFront(l *List, data interface{}) {
 	}
 }
 
-func ListSize(l *List) int {
-	if l.Head == nil {
-		return 0
-	}
-	count := 0
-	current := l.Head
-	for current != nil {
-		current = current.Next
-		count++
-	}
-	return count
-}
+// func ListSize(l *List) int {
+// 	if l.Head == nil {
+// 		return 0
+// 	}
+// 	count := 0
+// 	current := l.Head
+// 	for current != nil {
+// 		current = current.Next
+// 		count++
+// 	}
+// 	return count
+// }
