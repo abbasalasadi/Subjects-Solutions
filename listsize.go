@@ -1,32 +1,35 @@
 package piscine
 
-// type NodeL struct {
-// 	Data interface{}
-// 	Next *NodeL
-// }
+type NodeL struct {
+	Data interface{}
+	Next *NodeL
+}
 
-// type List struct {
-// 	Head *NodeL
-// 	Tail *NodeL
-// }
+type List struct {
+	Head *NodeL
+	Tail *NodeL
+}
 
-// func ListPushFront(l *List, data interface{}) {
-// 	newNode := &NodeL{Data: data}
-// 	if l.Head == nil {
-// 		l.Head = newNode
-// 		l.Tail = newNode
-// 	} else {
-// 		newNode.Next = l.Head
-// 		l.Head = newNode
-// 	}
-// }
+func ListPushFront(l *List, data interface{}) {
+	NewNode := &NodeL{Data: data}
+	if l.Head == nil {
+		l.Head = NewNode
+		l.Tail = NewNode
+	} else {
+		NewNode.Next = l.Head
+		l.Head = NewNode
+	}
+}
 
-// func ListSize(l *List) int {
-// 	count := 0
-// 	current := l.Head
-// 	for current != nil {
-// 		count++
-// 		current = current.Next
-// 	}
-// 	return count
-// }
+func ListSize(l *List) int {
+	if l.Head == nil {
+		return 0
+	}
+	count := 0
+	current := l.Head
+	for current != nil {
+		current = current.Next
+		count++
+	}
+	return count
+}
