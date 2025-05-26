@@ -2,28 +2,24 @@ package main
 
 import (
 	"fmt"
-	// "math"
 )
 
-type parameters interface{
-	Area() float64
-	Circomference() float64
+type Stack struct{
+	Item int
+	Next *Stack
 }
 
-type Rictangle struct{
-	ShortSide float64
-	LongSide float64
+func (s *Stack) Push(item int) *Stack {
+	return &Stack{
+		Item: item,
+		Next: s,
+	}
 }
 
-func (r Rictangle) Area() float64 {
-	return r.LongSide * r.ShortSide
-}
-
-func (r Rictangle) Circomference() float64{
-	return 2*(r.LongSide+r.ShortSide)
-}
-
-func main(){
-	R:=Rictangle{ShortSide: 6, LongSide: 8}
-	fmt.Printf("Rectangle L: %v, S: %v, Area: %v, Circomference: %v\n", R.LongSide, R.ShortSide, R.Area(), R.Circomference())
+func main() {
+	var s *Stack
+	for i:=0; i<10; i++{
+		s=s.Push(i)
+		fmt.Println(s.Item)
+	}
 }
