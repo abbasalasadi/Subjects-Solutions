@@ -3,82 +3,76 @@
 package piscine
 
 import (
-	// "fmt"
-
 	"math"
 	"strconv"
 )
 
-func Float(str string) (Index int, Err bool) {
-	Err = false
-	Index = -1
-	for i, v := range str {
-		if v == '.' {
-			Index = i
-		}
-		if !((v >= '0' && v <= '9') || v == '.') {
-			Err = true
-			Index = 0
-			break
+func Valid(s string) bool {
+	for _, v := range s {
+		if !((v >= '0' && v <= '9') || v == '-' || v == '.') {
+			return false
 		}
 	}
-	return Index, Err
+	return true
 }
 
-func ConvFloat(str string) (num float64, Index int, Err bool) {
-	Index, Err = Float(str)
-	if Err {
-		return 0, 0, true
+func Neg(s string) (str string, neg bool) {
+	if s[0] == '-' {
+		neg = true
+		str = s[1:]
+	} else {
+		neg = false
+		str = s
 	}
-	num = float64(0)
-	Int := ""
-	dec := ""
-	if Index != -1 {
-		Int = str[:Index]
-		dec = str[Index+1:]
-		for _, v := range Int {
-			num = num*10 + float64(v-'0')
+	return str, neg
+}
+
+func DecimalPoint(str string) (Index int, found bool) {
+	for i, v := range str {
+		if v == '.' {
+			return i, true
 		}
-		dot := float64(0)
-		for i := len(dec) - 1; i >= 0; i-- {
-			dot = dot/10 + float64(dec[i]-'0')
-		}
-		return num + dot/10, Index, false
 	}
-	Int = str
-	for _, v := range Int {
-		num = num*10 + float64(v-'0')
+	return -1, false
+}
+
+func toFlt(num, flt string, neg bool) int {
+	x := float64(0)
+	y := float64(0)
+	result := float64(0)
+	for _, c := range num {
+		x = x*10 + float64(c-'0')
 	}
-	return num, Index, false
+	for i := len(flt) - 1; i >= 0; i-- {
+		y = y/10 + float64(rune(flt[i])-'0')
+	}
+	result = x + y/10
+	if neg {
+		result *= -1
+	}
+		return int(result * math.Pow(10,float64(len(flt))))
 }
 
 func NotDecimal(dec string) string {
-	if len(dec) == 0 {
+	if dec == "" {
 		return "\n"
 	}
-	str := ""
-	Neg := false
-	if dec[0] == '-' {
-		str = dec[1:]
-		Neg = true
-	} else {
-		str = dec
-	}
-	num, Index, Err := ConvFloat(str)
-	if Err {
-		if !Neg {
-			return str + "\n"
+	result := 0
+	num := ""
+	flt := ""
+	str, neg := Neg(dec)
+	if Valid(dec) {
+		Index, found := DecimalPoint(str)
+		if found {
+			num = str[:Index]
+			flt = str[Index+1:]
+		} else {
+			num = str
 		}
-		return "-" + str + "\n"
-	}
-	result := 0.0
-	if Index != -1 {
-		result = num * math.Pow(10, float64(len(str)-Index-1))
+		result = toFlt(num, flt, neg)
+
 	} else {
-		result = num
+		return dec + "\n"
 	}
-	if Neg {
-		result *= -1
-	}
-	return strconv.Itoa(int(result)) + "\n"
+	return strconv.Itoa(result) + "\n"
 }

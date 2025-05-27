@@ -13,5 +13,5 @@ func main() {
 	fmt.Print(p.NotDecimal("-0.0f00d00"))
 	fmt.Print(p.NotDecimal(""))
 	fmt.Print(p.NotDecimal("-19.525856"))
-	fmt.Print(p.NotDecimal("-1952"))
+	fmt.Print(p.NotDecimal("1952"))
 }
