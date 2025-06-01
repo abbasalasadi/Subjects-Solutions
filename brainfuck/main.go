@@ -1,3 +1,5 @@
+// This solution is created by AI. just to study it. 
+
 package main
 
 import (
